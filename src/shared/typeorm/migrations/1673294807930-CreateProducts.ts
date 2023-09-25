@@ -25,7 +25,7 @@ export class createProducts1673294807930 implements MigrationInterface {
           },
           {
             name: 'quantity',
-            type: 'integer',
+            type: 'int',
           },
           {
             name: 'created_at',
@@ -41,6 +41,7 @@ export class createProducts1673294807930 implements MigrationInterface {
       }),
     );
   }
+
   public async down(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.dropTable('products');
   }
