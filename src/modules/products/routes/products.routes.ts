@@ -18,6 +18,7 @@ productsRouter.get(
   }),
   productsController.show,
 );
+
 productsRouter.post(
   '/',
   celebrate({

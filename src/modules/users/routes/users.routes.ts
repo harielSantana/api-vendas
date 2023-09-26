@@ -8,6 +8,16 @@ const userController = new UsersController();
 
 userRouter.get('/', userController.index);
 
+userRouter.get(
+  '/:id',
+  celebrate({
+    [Segments.PARAMS]: {
+      id: Joi.string().uuid().required(),
+    },
+  }),
+  userController.show,
+);
+
 userRouter.post(
   '/',
   celebrate({
@@ -19,3 +29,30 @@ userRouter.post(
   }),
   userController.create,
 );
+
+userRouter.put(
+  '/:id',
+  celebrate({
+    [Segments.BODY]: {
+      name: Joi.string().required(),
+      email: Joi.string().email().required(),
+      password: Joi.string().required(),
+    },
+    [Segments.PARAMS]: {
+      id: Joi.string().uuid().required(),
+    },
+  }),
+  userController.update,
+);
+
+userRouter.delete(
+  '/:id',
+  celebrate({
+    [Segments.PARAMS]: {
+      id: Joi.string().uuid().required(),
+    },
+  }),
+  userController.delete,
+);
+
+export default userRouter;

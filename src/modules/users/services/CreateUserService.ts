@@ -1,7 +1,7 @@
+import AppError from '@shared/errors/AppError';
 import { getCustomRepository } from 'typeorm';
 import User from '../typeorm/entities/User';
-import UserRepository from '../typeorm/repositories/UsersRepository';
-import AppError from '@shared/errors/AppError';
+import { UsersRepository } from '../typeorm/repositories/UsersRepository';
 
 interface IRequest {
   name: string;
@@ -11,21 +11,21 @@ interface IRequest {
 
 class CreateUserService {
   public async execute({ name, email, password }: IRequest): Promise<User> {
-    const userRepository = getCustomRepository(UserRepository);
+    const usersRepository = getCustomRepository(UsersRepository);
 
-    const emailExists = await userRepository.findByEmail(email);
+    const emailExists = await usersRepository.findByName(name);
 
     if (emailExists) {
-      throw new AppError('Email address already exists');
+      throw new AppError('Email address already used.');
     }
 
-    const user = await userRepository.create({
+    const user = usersRepository.create({
       name,
       email,
       password,
     });
 
-    await userRepository.save(user);
+    await usersRepository.save(user);
 
     return user;
   }
