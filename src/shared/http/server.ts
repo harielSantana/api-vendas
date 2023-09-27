@@ -8,7 +8,6 @@ import cors from 'cors';
 import routes from './routes';
 import AppError from '@shared/errors/AppError';
 import { errors } from 'celebrate';
-import path from 'path';
 import upload from '@config/upload';
 
 const app = express();
