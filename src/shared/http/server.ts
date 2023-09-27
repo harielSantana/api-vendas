@@ -8,12 +8,14 @@ import cors from 'cors';
 import routes from './routes';
 import AppError from '@shared/errors/AppError';
 import { errors } from 'celebrate';
+import path from 'path';
+import upload from '@config/upload';
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
-
+app.use('/files', express.static(upload.directory));
 app.use(routes);
 
 app.use(errors());
