@@ -17,11 +17,15 @@ class ResetPasswordService {
 
     const userToken = await userTokensRepository.findByToken(token);
 
+    console.log('UserToken', userToken?.id);
+
     if (!userToken) {
-      throw new AppError('User not found');
+      throw new AppError('User Token not found');
     }
 
-    const user = await usersRepository.findById(userToken.id);
+    const user = await usersRepository.findById(userToken.user_id);
+
+    console.log(' User', user);
 
     if (!user) {
       throw new AppError('User not found');
@@ -35,6 +39,8 @@ class ResetPasswordService {
     }
 
     user.password = await hash(password, 8);
+
+    await usersRepository.save(user);
   }
 }
 
