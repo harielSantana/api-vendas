@@ -1,7 +1,7 @@
 import { getCustomRepository } from 'typeorm';
 import AppError from '@shared/errors/AppError';
-import UserRepository from '../typeorm/repositories/UsersRepository';
 import User from '../typeorm/entities/User';
+import { UsersRepository } from '../typeorm/repositories/UsersRepository';
 
 interface IRequest {
   id: string;
@@ -17,7 +17,7 @@ class UpdateUserService {
     email,
     password,
   }: IRequest): Promise<User | undefined> {
-    const userRepository = getCustomRepository(UserRepository);
+    const userRepository = getCustomRepository(UsersRepository);
 
     const user = await userRepository.findOne({ id: id });
 
