@@ -1,6 +1,5 @@
 import { Router } from 'express';
 import { Segments, celebrate } from 'celebrate';
-import multer from 'multer';
 import Joi from 'joi';
 
 import isAuthenticated from '../middlewares/isAuthenticated';
